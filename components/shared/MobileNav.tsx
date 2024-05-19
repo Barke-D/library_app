@@ -96,17 +96,17 @@ const MobileNav = (props: Props) => {
                 <SignedOut>
                   <Link
                     href="/sign-up"
-                    className="flex flex-row gap-3 mt-7 ml-5"
+                    className="flex flex-row gap-3 mt-7 ml-5 "
                   >
                     <UserRoundPlusIcon />
-                    <p>New Account</p>
+                    <p className="text-xl font-bold">New Account</p>
                   </Link>
                   <Link
                     href="/sign-in"
                     className="flex flex-row gap-3 mt-7 ml-5"
                   >
                     <LogInIcon />
-                    <p>Login</p>
+                    <p className="text-xl font-bold">Login</p>
                   </Link>
                 </SignedOut>
               </div>

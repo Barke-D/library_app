@@ -4,7 +4,6 @@ const page = () => {
   return (
     <section>
       <h1>Profile Page</h1>
-      <div className=""></div>
     </section>
   );
 };

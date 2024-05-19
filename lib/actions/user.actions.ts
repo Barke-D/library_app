@@ -20,7 +20,6 @@ export async function fetchUser(userId: string) {
 }
 
 interface Params {
-  _id: string;
   userId: string;
   username: string;
   name: string;
@@ -45,7 +44,6 @@ export async function getUserById(userId: string) {
 
 // UPDATE
 export async function updateUser({
-  _id,
   userId,
   bio,
   name,
@@ -59,7 +57,6 @@ export async function updateUser({
     await User.findOneAndUpdate(
       { id: userId },
       {
-        clerkId: _id,
         username: username.toLowerCase(),
         name,
         bio,

@@ -4,6 +4,7 @@ const Assistance = () => {
   return (
     <div className="w-full flex items-center justify-content">
       {/* <AssistanceDemo /> */}
+      <p>AssistanceDemo</p>
     </div>
   );
 };
