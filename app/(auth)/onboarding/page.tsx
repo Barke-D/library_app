@@ -1,5 +1,5 @@
 import { currentUser } from "@clerk/nextjs/server";
-import AccountProfile from "@/components/forms/AccountProfile.1";
+// import AccountProfile from "@/components/forms/AccountProfile";
 
 interface Props {}
 
