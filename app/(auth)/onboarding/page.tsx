@@ -8,14 +8,14 @@ const Page = async (props: Props) => {
 
   const userInfo = {};
 
-  const userData = {
-    id: user?.id,
-    objectId: userInfo?._id,
-    username: userInfo?.username || user?.username,
-    name: userInfo?.name || user?.firstName || "",
-    bio: userInfo?.bio || "",
-    image: userInfo?.image || user?.imageUrl,
-  };
+  // const userData = {
+  //   id: user?.id,
+  //   objectId: userInfo?._id,
+  //   username: userInfo?.username || user?.username,
+  //   name: userInfo?.name || user?.firstName || "",
+  //   bio: userInfo?.bio || "",
+  //   image: userInfo?.image || user?.imageUrl,
+  // };
 
   return (
     <main className="mx-auto flex max-w-3xl flex-col justify-start px-10 py-20">
@@ -25,7 +25,7 @@ const Page = async (props: Props) => {
       </p>
 
       <section className="rounded-md mt-9 shadow-lg shadow-indigo-500/40 p-10">
-        <AccountProfile user={userData} btnTitle="Continue" />
+        {/* <AccountProfile user={} btnTitle="Continue" /> */}
       </section>
     </main>
   );

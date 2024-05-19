@@ -17,7 +17,7 @@ import { UserIcon } from "lucide-react";
 
 interface Props {
   user: {
-    id: string;
+    id: string | undefined;
     objectId: string;
     username: string;
     name: string;
