@@ -18,7 +18,7 @@ type Props = {};
 
 const Sidebar = (props: Props) => {
   return (
-    <aside className="sidebar border shadow-lg shadow-indigo-500/40 fixed h-screen">
+    <aside className="z-10 sidebar border shadow-lg shadow-indigo-500/40 fixed h-screen">
       <div className="ml-5 font-semibold text-2xl">
         <Link href="/">DigitalLab</Link>
       </div>
