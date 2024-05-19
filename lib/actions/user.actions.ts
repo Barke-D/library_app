@@ -1,10 +1,16 @@
 "use server";
+
 import { revalidatePath } from "next/cache";
 import Thread from "../database/models/thread.model";
 import User from "../database/models/user.model";
 import { connectToDatabase } from "../database/mongoose";
 import { FilterQuery, SortOrder } from "mongoose";
 import Community from "../database/models/communities.model";
+import {
+  CreateUserParams,
+  DeleteUserParams,
+  UpdateUserParams,
+} from "@/types/index";
 
 export async function fetchUser(userId: string) {
   try {
@@ -28,69 +34,54 @@ interface Params {
   path: string;
 }
 
-// READ
-export async function getUserById(userId: string) {
+export async function createUser(userData: CreateUserParams) {
   try {
     connectToDatabase();
 
-    const user = await User.findOne({ clerkId: userId });
+    const newUser = await User.create(userData);
 
-    if (!user) throw new Error("User not found");
-    return JSON.parse(JSON.stringify(user));
-  } catch (error: any) {
-    throw new Error(`Failed to get the user by id: ${error.message}`);
+    return newUser;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 }
 
-// UPDATE
-export async function updateUser({
-  userId,
-  bio,
-  name,
-  path,
-  username,
-  image,
-}: Params): Promise<void> {
+export async function updateUser(params: UpdateUserParams) {
   try {
     connectToDatabase();
 
-    await User.findOneAndUpdate(
-      { id: userId },
-      {
-        username: username.toLowerCase(),
-        name,
-        bio,
-        image,
-        onboarded: true,
-      },
-      { upsert: true }
-    );
+    const { clerkId, updateData, path } = params;
 
-    if (path === "/profile/edit") {
-      revalidatePath(path);
-    }
-  } catch (error: any) {
-    throw new Error(`Failed to create/update user: ${error.message}`);
+    await User.findOneAndUpdate({ clerkId }, updateData, {
+      new: true,
+    });
+
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 }
 
-// DELETE
-export async function deleteUser(clerkId: string) {
+export async function deleteUser(params: DeleteUserParams) {
   try {
     connectToDatabase();
 
-    const userToDelete = await User.findOne({ clerkId });
+    const { clerkId } = params;
 
-    if (!userToDelete) {
+    const user = await User.findOneAndDelete({ clerkId });
+
+    if (!user) {
       throw new Error("User not found");
     }
 
-    const deletedUser = await User.findByIdAndDelete(userToDelete._id);
-    revalidatePath("/");
+    const deletedUser = await User.findByIdAndDelete(user._id);
 
-    return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
-  } catch (error: any) {
-    throw new Error(`Failed to delete user: ${error.message}`);
+    return deletedUser;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 }
 
@@ -195,5 +186,18 @@ export async function getActivity(userId: string) {
     return replies;
   } catch (error: any) {
     throw new Error(`Failed to fetch activites: ${error.message}`);
+  }
+}
+
+export async function getUserById(userId: string) {
+  try {
+    connectToDatabase();
+
+    const user = await User.findOne({ clerkId: userId });
+
+    if (!user) throw new Error("User not found");
+    return JSON.parse(JSON.stringify(user));
+  } catch (error: any) {
+    throw new Error(`Failed to get the user by id: ${error.message}`);
   }
 }

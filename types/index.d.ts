@@ -1,17 +1,17 @@
-declare type CreateUserParams = {
+export interface CreateUserParams {
   clerkId: string;
+  name: string;
+  username: string;
   email: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  photo: string;
-  bio: string;
-};
+  picture: string;
+}
 
-declare type UpdateUserParams = {
-  username: string;
-  firstName: string;
-  lastName: string;
-  photo: string;
-  bio: string;
-};
+export interface UpdateUserParams {
+  clerkId: string;
+  updateData: Partial<IUser>;
+  path: string;
+}
+
+export interface DeleteUserParams {
+  clerkId: string;
+}
